@@ -2,8 +2,6 @@ package infura
 
 import (
 	"encoding/json"
-	"strconv"
-	"strings"
 )
 
 type Request struct {

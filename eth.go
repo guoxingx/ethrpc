@@ -1,11 +1,8 @@
 package infura
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 )
 
 func (p *InfuraProvider) EthAccounts() {}

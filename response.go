@@ -1,5 +1,11 @@
 package infura
 
+import (
+	"encoding/json"
+	"strconv"
+	"strings"
+)
+
 type Response struct {
 	JsonRpc string          `json:"jsonrpc"`
 	ID      int64           `json:"id"`

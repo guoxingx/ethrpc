@@ -20,7 +20,7 @@ type InfuraProvider struct {
 
 func (p *InfuraProvider) requestBody(action string, params []interface{}) *bytes.Buffer {
 	index := atomic.AddInt64(&p.index, 1)
-	return bytes.NewBuffer(NewRequest(action, params, index))
+	return bytes.NewBuffer(NewRequest(action, params, index).ToBytes())
 }
 
 func (p *InfuraProvider) sendRequest(body io.Reader) (resp *Response, err error) {
