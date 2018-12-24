@@ -21,7 +21,12 @@ func (p *RpcProvider) EthBlockNumber() (height int64, err error) {
 	if err != nil {
 		return height, err
 	}
-	err = json.Unmarshal(resp.Result, &height)
+	var heightHex string
+	err = json.Unmarshal(resp.Result, &heightHex)
+	if err != nil {
+		return
+	}
+	height = HexToInt64(heightHex)
 	return
 }
 
