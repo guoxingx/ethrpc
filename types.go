@@ -1,4 +1,4 @@
-package infura
+package ethrpc
 
 import (
 	"encoding/json"

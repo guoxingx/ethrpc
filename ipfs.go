@@ -1,1 +1,1 @@
-package infura
+package ethrpc

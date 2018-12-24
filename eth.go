@@ -1,13 +1,21 @@
-package infura
+package ethrpc
 
 import (
 	"encoding/json"
 	"fmt"
 )
 
-func (p *InfuraProvider) EthAccounts() {}
+func (p *RpcProvider) EthAccounts() (accounts []string, err error) {
+	body := p.requestBody("eth_accounts", []interface{}{})
+	resp, err := p.sendRequest(body)
+	if err != nil {
+		return accounts, err
+	}
+	err = json.Unmarshal(resp.Result, &accounts)
+	return
+}
 
-func (p *InfuraProvider) EthBlockNumber() (height int64, err error) {
+func (p *RpcProvider) EthBlockNumber() (height int64, err error) {
 	body := p.requestBody("eth_blockNumber", []interface{}{})
 	resp, err := p.sendRequest(body)
 	if err != nil {
@@ -17,13 +25,26 @@ func (p *InfuraProvider) EthBlockNumber() (height int64, err error) {
 	return
 }
 
-func (p *InfuraProvider) EthCall()           {}
-func (p *InfuraProvider) EthEstimateGas()    {}
-func (p *InfuraProvider) EthGasPrice()       {}
-func (p *InfuraProvider) EthGetBalance()     {}
-func (p *InfuraProvider) EthGetBlockByHash() {}
+func (p *RpcProvider) EthCall() {
+	data := []interface{}{
+		map[string]string{
+			"from":     "",
+			"to":       "",
+			"gas":      "",
+			"gasPrice": "",
+			"value":    "",
+			"data":     "",
+		},
+		"latest",
+	}
+	panic(data)
+}
+func (p *RpcProvider) EthEstimateGas()    {}
+func (p *RpcProvider) EthGasPrice()       {}
+func (p *RpcProvider) EthGetBalance()     {}
+func (p *RpcProvider) EthGetBlockByHash() {}
 
-func (p *InfuraProvider) EthGetBlockByNumber(height interface{}) (block *BlockResponse, err error) {
+func (p *RpcProvider) EthGetBlockByNumber(height interface{}) (block *BlockResponse, err error) {
 	var heightHex string
 
 	switch height.(type) {
@@ -55,28 +76,28 @@ func (p *InfuraProvider) EthGetBlockByNumber(height interface{}) (block *BlockRe
 	return blockHex.UnHexed(), err
 }
 
-func (p *InfuraProvider) EthGetBlockTransactionCountByHash()      {}
-func (p *InfuraProvider) EthGetBlockTransactionCountByNumber()    {}
-func (p *InfuraProvider) EthGetCode()                             {}
-func (p *InfuraProvider) EthGetLogs()                             {}
-func (p *InfuraProvider) EthGetStorageAt()                        {}
-func (p *InfuraProvider) EthGetTransactionByBlockHashAndIndex()   {}
-func (p *InfuraProvider) EthGetTransactionByBlockNumberAndIndex() {}
-func (p *InfuraProvider) EthGetTransactionByHash()                {}
-func (p *InfuraProvider) EthGetTransactionCount()                 {}
-func (p *InfuraProvider) EthGetTransactionReceipt()               {}
-func (p *InfuraProvider) EthGetUncleByBlockHashAndIndex()         {}
-func (p *InfuraProvider) EthGetUncleByBlockNumberAndIndex()       {}
-func (p *InfuraProvider) EthGetUncleCountByBlockHash()            {}
-func (p *InfuraProvider) EthGetUncleCountByBlockNumber()          {}
-func (p *InfuraProvider) EthGetWork()                             {}
-func (p *InfuraProvider) EthHashrate()                            {}
-func (p *InfuraProvider) EthMining()                              {}
-func (p *InfuraProvider) EthProtocolVersion()                     {}
-func (p *InfuraProvider) EthSendRawTransaction()                  {}
-func (p *InfuraProvider) EthSubmitWork()                          {}
-func (p *InfuraProvider) EthSyncing()                             {}
-func (p *InfuraProvider) EthListening()                           {}
-func (p *InfuraProvider) EthPeerCount()                           {}
-func (p *InfuraProvider) EthVersion()                             {}
-func (p *InfuraProvider) EthClientVersion()                       {}
+func (p *RpcProvider) EthGetBlockTransactionCountByHash()      {}
+func (p *RpcProvider) EthGetBlockTransactionCountByNumber()    {}
+func (p *RpcProvider) EthGetCode()                             {}
+func (p *RpcProvider) EthGetLogs()                             {}
+func (p *RpcProvider) EthGetStorageAt()                        {}
+func (p *RpcProvider) EthGetTransactionByBlockHashAndIndex()   {}
+func (p *RpcProvider) EthGetTransactionByBlockNumberAndIndex() {}
+func (p *RpcProvider) EthGetTransactionByHash()                {}
+func (p *RpcProvider) EthGetTransactionCount()                 {}
+func (p *RpcProvider) EthGetTransactionReceipt()               {}
+func (p *RpcProvider) EthGetUncleByBlockHashAndIndex()         {}
+func (p *RpcProvider) EthGetUncleByBlockNumberAndIndex()       {}
+func (p *RpcProvider) EthGetUncleCountByBlockHash()            {}
+func (p *RpcProvider) EthGetUncleCountByBlockNumber()          {}
+func (p *RpcProvider) EthGetWork()                             {}
+func (p *RpcProvider) EthHashrate()                            {}
+func (p *RpcProvider) EthMining()                              {}
+func (p *RpcProvider) EthProtocolVersion()                     {}
+func (p *RpcProvider) EthSendRawTransaction()                  {}
+func (p *RpcProvider) EthSubmitWork()                          {}
+func (p *RpcProvider) EthSyncing()                             {}
+func (p *RpcProvider) EthListening()                           {}
+func (p *RpcProvider) EthPeerCount()                           {}
+func (p *RpcProvider) EthVersion()                             {}
+func (p *RpcProvider) EthClientVersion()                       {}
